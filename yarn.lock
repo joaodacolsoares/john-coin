@@ -193,6 +193,11 @@
   "resolved" "https://registry.npmjs.org/@tsconfig/node16/-/node16-1.0.2.tgz"
   "version" "1.0.2"
 
+"@types/crypto-js@^4.0.2":
+  "integrity" "sha512-sCVniU+h3GcGqxOmng11BRvf9TfN9yIs8KKjB8C8d75W69cpTfZG80gau9yTx5SxF3gvHGbJhdESzzvnjtf3Og=="
+  "resolved" "https://registry.npmjs.org/@types/crypto-js/-/crypto-js-4.0.2.tgz"
+  "version" "4.0.2"
+
 "@types/minimist@^1.2.0":
   "integrity" "sha512-jhuKLIRrhvCPLqwPcx6INqmKeiA5EWrsCOPhrlFSrbrmU4ZMPjj5Ul/oLCMDO98XRUIwVm78xICz4EPCektzeQ=="
   "resolved" "https://registry.npmjs.org/@types/minimist/-/minimist-1.2.2.tgz"
