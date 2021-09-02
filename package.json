@@ -5,21 +5,24 @@
   "main": "src/index.ts",
   "scripts": {
     "postinstall": "husky install",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "ts-node src/index.ts"
+    "start": "ts-node src/index.ts",
+    "test": "jest"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "@commitlint/cli": "^13.1.0",
     "@commitlint/config-conventional": "^13.1.0",
-    "husky": "^7.0.2"
+    "@types/jest": "^27.0.1",
+    "husky": "^7.0.2",
+    "jest": "^27.1.0",
+    "ts-jest": "^27.0.5",
+    "typescript": "^4.4.2"
   },
   "dependencies": {
     "@types/crypto-js": "^4.0.2",
     "@types/node": "^16.7.10",
     "crypto-js": "^4.1.1",
-    "ts-node": "^10.2.1",
-    "typescript": "^4.4.2"
+    "ts-node": "^10.2.1"
   }
 }
