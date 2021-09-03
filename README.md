@@ -1,6 +1,6 @@
-# TS-Blockchain
+# John Coin
 
-Here is a pet-project to help me learn how a blockchain works.
+Here is a pet-project to help me learn how a blockchain and bitcoin works.
 
 ## Conventional Commits
 
