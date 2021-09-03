@@ -23,22 +23,31 @@ export default class BlockChain {
   }
 
   minePendingTransactions(miningRewardAddress: string) {
+    const rewardTransaction = new Transaction(null, miningRewardAddress, this.miningReward)
+    this.pendingTransactions.push(rewardTransaction);
+
     let block = new Block(new Date(Date.now()), this.pendingTransactions, this.getLatestBlock().hash)
     block.mineBlock(this.difficulty)
 
     console.log('block mined!')
     this.chain.push(block);
 
-    this.pendingTransactions = [
-      new Transaction(null, miningRewardAddress, this.miningReward)
-    ]
+    this.pendingTransactions = []
   }
 
   private getLatestBlock() : Block {
     return this.chain[this.chain.length - 1];
   }
 
-  createTransaction(transaction: Transaction) {
+  addTransaction(transaction: Transaction) {
+    if(!transaction.from || !transaction.to) {
+      throw new Error("Transactions must include from and to address");
+    }
+
+    if(!transaction.isValid()) {
+      throw new Error("Cannot add invalid transaction to the chain");
+    }
+
     this.pendingTransactions.push(transaction)
   }
 
@@ -62,6 +71,8 @@ export default class BlockChain {
     if(i === FIRST_BLOCK_IN_ARRAY) return IS_VALID_BLOCK;
     
     const previousBlock =  chain[i - 1];
+
+    if(!currentBlock.hasValidTransaction()) return IS_INVALID_BLOCK
     if(currentBlock.hash !== currentBlock.calculateHash()) return IS_INVALID_BLOCK;
     if(currentBlock.previousHash !== previousBlock?.hash) return IS_INVALID_BLOCK;
 

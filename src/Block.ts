@@ -28,4 +28,9 @@ export default class Block {
       this.hash = this.calculateHash();
     }
   }
+
+  hasValidTransaction() {
+    return this.transactions
+      .every(transaction => transaction.isValid())
+  }
 }
