@@ -1,12 +1,19 @@
 import Block from "./Block";
 import BlockChain from "./BlockChain";
-import BlockData from "./BlockData";
+import Transaction from "./Transaction";
 
 const JSON_SPACE_SIZE = 2;
 const myBlockChain = new BlockChain();
 
-myBlockChain.addBlock(new Block(1, new Date('02/07/2017'), new BlockData("John Doe", 100)));
-myBlockChain.addBlock(new Block(2, new Date('06/07/2017'), new BlockData("Nico Boe", 200)));
+myBlockChain.createTransaction(new Transaction("address1", "address2", 100))
+myBlockChain.createTransaction(new Transaction("address2", "address1", 50))
 
+myBlockChain.minePendingTransactions("address3")
+
+console.log("address1 balance = ", myBlockChain.getBalanceOfAddress("address1"))
+console.log("address2 balance = ", myBlockChain.getBalanceOfAddress("address2"))
+console.log("address3 balance = ", myBlockChain.getBalanceOfAddress("address3"))
+
+myBlockChain.minePendingTransactions("address3")
 console.log(JSON.stringify(myBlockChain, null, JSON_SPACE_SIZE))
 console.log('Block Chain is valid? ', myBlockChain.isChainValid() ? 'yes' : 'no')

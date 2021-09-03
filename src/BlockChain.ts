@@ -1,5 +1,5 @@
 import Block from "./Block";
-import BlockData from "./BlockData";
+import Transaction from "./Transaction";
 
 const FIRST_BLOCK_IN_ARRAY = 0;
 const IS_VALID_BLOCK = true;
@@ -7,23 +7,49 @@ const IS_INVALID_BLOCK = false;
 
 export default class BlockChain {
   chain: Block[];
+  difficulty: number
+  pendingTransactions : Transaction[];
+  miningReward: number;
 
   constructor() {
     this.chain = [this.createGenesisBlock()];
+    this.difficulty = 2
+    this.pendingTransactions = [];
+    this.miningReward = 100;
   }
 
-  createGenesisBlock() : Block {
-    return new Block(0, new Date("05/04/2005"), new BlockData("Genesis Block", 0), "");
+  private createGenesisBlock() : Block {
+    return new Block(new Date("01/01/2000"), []);
   }
 
-  getLatestBlock() : Block {
+  minePendingTransactions(miningRewardAddress: string) {
+    let block = new Block(new Date(Date.now()), this.pendingTransactions, this.getLatestBlock().hash)
+    block.mineBlock(this.difficulty)
+
+    console.log('block mined!')
+    this.chain.push(block);
+
+    this.pendingTransactions = [
+      new Transaction(null, miningRewardAddress, this.miningReward)
+    ]
+  }
+
+  private getLatestBlock() : Block {
     return this.chain[this.chain.length - 1];
   }
 
-  addBlock(newBlock : Block) : void {
-    newBlock.previousHash = this.getLatestBlock().hash;
-    newBlock.hash = newBlock.calculateHash();
-    this.chain.push(newBlock);
+  createTransaction(transaction: Transaction) {
+    this.pendingTransactions.push(transaction)
+  }
+
+  getBalanceOfAddress(address: string) {
+    return this.chain
+      .flatMap(block => block.transactions)
+      .reduce((previous, current) => {
+        if(current.to == address) previous += current.amount
+        else if(current.from == address) previous -= current.amount
+        return previous
+      }, 0);
   }
 
   isChainValid() : boolean {
