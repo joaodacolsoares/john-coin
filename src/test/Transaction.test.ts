@@ -6,6 +6,10 @@ test('transaction is generating hash with correct base fields', () => {
   const transaction = new Transaction('aba', 'cate', 10);
 
   const hash = transaction.calculateHash()
+  
+  expect(hash).not.toBeNaN()
+  expect(hash).not.toBeFalsy()
+  expect(hash).toBeDefined()
   expect(hash).toBe(SHA256(transaction.from + transaction.to + transaction.amount).toString())
 })
 
