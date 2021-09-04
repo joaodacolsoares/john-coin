@@ -12,7 +12,8 @@ test('block is generating hash with correct base fields', () => {
 
 test('block with valid transactions', () => {
   const transaction = new Transaction(null, 'cate', 10);
-  transaction.isValid = () => true
+  transaction.isValid = jest.fn(() => true) 
+  
   const block = new Block(new Date(), [transaction], 'prev hash');
   
   expect(block.hasValidTransaction()).toBeTruthy()
@@ -20,7 +21,7 @@ test('block with valid transactions', () => {
 
 test('block with invalid transactions', () => {
   const transaction = new Transaction('', 'cate', 10);
-  transaction.isValid = () => false
+  transaction.isValid = jest.fn(() => false)
   const block = new Block(new Date(), [transaction], 'prev hash');
   
   expect(block.hasValidTransaction()).toBeFalsy()
