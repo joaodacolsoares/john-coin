@@ -1,7 +1,7 @@
 import Block from "./Block";
 import Transaction from "./Transaction";
 
-const FIRST_BLOCK_IN_ARRAY = 0;
+const FIRST_INDEX_IN_ARRAY = 0;
 const IS_VALID_BLOCK = true;
 const IS_INVALID_BLOCK = false;
 
@@ -29,9 +29,7 @@ export default class BlockChain {
     let block = new Block(new Date(Date.now()), this.pendingTransactions, this.getLatestBlock().hash)
     block.mineBlock(this.difficulty)
 
-    console.log('block mined!')
     this.chain.push(block);
-
     this.pendingTransactions = []
   }
 
@@ -63,12 +61,12 @@ export default class BlockChain {
 
   isChainValid() : boolean {
     return this.chain
-      .map(this.toValidBlocks)
-      .every(this.isValid)
+      .map(this.toIsValidBlock)
+      .every(this.isBlockValid)
   }
 
-  private toValidBlocks(currentBlock: Block, i: number, chain: Block[]) : boolean {
-    if(i === FIRST_BLOCK_IN_ARRAY) return IS_VALID_BLOCK;
+  private toIsValidBlock(currentBlock: Block, i: number, chain: Block[]) : boolean {
+    if(i === FIRST_INDEX_IN_ARRAY) return IS_VALID_BLOCK;
     
     const previousBlock =  chain[i - 1];
 
@@ -79,7 +77,7 @@ export default class BlockChain {
     return IS_VALID_BLOCK;
   }
 
-  private isValid(value: boolean) : boolean {
+  private isBlockValid(value: boolean) : boolean {
     return value == IS_VALID_BLOCK;
   }
 }
