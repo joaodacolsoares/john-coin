@@ -8,7 +8,6 @@ export default class Block {
   hash: string;
   nonce: number;
 
-
   constructor(timestamp: Date, transactions: Transaction[], previousHash = '') {
     this.timestamp = timestamp;
     this.transactions = transactions;
