@@ -6,10 +6,6 @@ test('transaction is generating hash with correct base fields', () => {
   const transaction = new Transaction('aba', 'cate', 10);
 
   const hash = transaction.calculateHash()
-  
-  expect(hash).not.toBeNaN()
-  expect(hash).not.toBeFalsy()
-  expect(hash).toBeDefined()
   expect(hash).toBe(SHA256(transaction.from + transaction.to + transaction.amount).toString())
 })
 
@@ -31,13 +27,6 @@ test('transaction with empty signature is invalid', () => {
   transaction.signature = '';
 
   expect(() => transaction.isValid()).toThrow(Error)
-})
-
-test('transaction with incorrect signature is invalid', () => {
-  const transaction = new Transaction('aba', 'cate', 10);
-  transaction.signature = 'some invalid signature'
-
-  expect(transaction.isValid()).toBeFalsy()
 })
 
 test('transaction with correct signature is valid', () => {
